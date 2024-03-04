@@ -1,0 +1,214 @@
+{
+  "tests": 15,
+  "failures": 2,
+  "disabled": 3,
+  "errors": 0,
+  "timestamp": "2024-03-01T05:23:08Z",
+  "time": "0.014s",
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "testClogRecord_simple",
+      "tests": 10,
+      "failures": 1,
+      "disabled": 1,
+      "errors": 0,
+      "timestamp": "2024-03-01T05:23:08Z",
+      "time": "0s",
+      "testsuite": [
+        {
+          "name": "default_constructors",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 76,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "fatal",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 98,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "critical",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 122,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "warning",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 146,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "notice",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 170,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "progress",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 194,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "debug",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 218,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "extension",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 242,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "DISABLED_some_disabled",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 318,
+          "status": "NOTRUN",
+          "result": "SUPPRESSED",
+          "timestamp": "1969-12-31T16:00:00Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple"
+        },
+        {
+          "name": "some_failures",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 332,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_simple",
+          "failures": [
+            {
+              "failure": "..\/..\/..\/test\/testClogRecord.cpp:342\nExpected equality of these values:\n  379\n  dSomeValue\n    Which is: 2.235\n",
+              "type": ""
+            },
+            {
+              "failure": "..\/..\/..\/test\/testClogRecord.cpp:343\nExpected equality of these values:\n  \"Expecting this...\"\n  sSomeText\n    Which is: \"Got that!\"\n",
+              "type": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testClogRecord_workingDir",
+      "tests": 3,
+      "failures": 1,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2024-03-01T05:23:08Z",
+      "time": "0.014s",
+      "testsuite": [
+        {
+          "name": "record_streaming",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 257,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0.001s",
+          "classname": "testClogRecord_workingDir"
+        },
+        {
+          "name": "extension_streaming",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 292,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0.012s",
+          "classname": "testClogRecord_workingDir"
+        },
+        {
+          "name": "other_failures",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 346,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2024-03-01T05:23:08Z",
+          "time": "0s",
+          "classname": "testClogRecord_workingDir",
+          "failures": [
+            {
+              "failure": "..\/..\/..\/test\/testClogRecord.cpp:356\nExpected equality of these values:\n  379\n  dSomeValue\n    Which is: 2.235\n",
+              "type": ""
+            },
+            {
+              "failure": "..\/..\/..\/test\/testClogRecord.cpp:357\nExpected equality of these values:\n  \"Expecting this...\"\n  sSomeText\n    Which is: \"Got that!\"\n",
+              "type": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DISABLED_testClogRecord_simple",
+      "tests": 2,
+      "failures": 0,
+      "disabled": 2,
+      "errors": 0,
+      "timestamp": "1969-12-31T16:00:00Z",
+      "time": "0s",
+      "testsuite": [
+        {
+          "name": "skipped_failure",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 371,
+          "status": "NOTRUN",
+          "result": "SUPPRESSED",
+          "timestamp": "1969-12-31T16:00:00Z",
+          "time": "0s",
+          "classname": "DISABLED_testClogRecord_simple"
+        },
+        {
+          "name": "skipped_success",
+          "file": "..\/..\/..\/test\/testClogRecord.cpp",
+          "line": 376,
+          "status": "NOTRUN",
+          "result": "SUPPRESSED",
+          "timestamp": "1969-12-31T16:00:00Z",
+          "time": "0s",
+          "classname": "DISABLED_testClogRecord_simple"
+        }
+      ]
+    }
+  ]
+}

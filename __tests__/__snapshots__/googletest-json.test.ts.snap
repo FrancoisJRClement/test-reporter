@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`googletest-json tests report from googletest test results matches snapshot 1`] = `
+TestRunResult {
+  "path": "fixtures/googletest-json.json",
+  "suites": [
+    TestSuiteResult {
+      "groups": [
+        TestGroupResult {
+          "name": "testClogRecord_simple",
+          "tests": [
+            TestCaseResult {
+              "error": undefined,
+              "name": "default_constructors",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "fatal",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "critical",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "warning",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "notice",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "progress",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "debug",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "extension",
+              "result": "success",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "DISABLED_some_disabled",
+              "result": "skipped",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": {
+                "details": "../../../test/testClogRecord.cpp:342
+Expected equality of these values:
+  379
+  dSomeValue
+    Which is: 2.235
+
+
+../../../test/testClogRecord.cpp:343
+Expected equality of these values:
+  "Expecting this..."
+  sSomeText
+    Which is: "Got that!"
+",
+              },
+              "name": "some_failures",
+              "result": "failed",
+              "time": 0,
+            },
+          ],
+        },
+        TestGroupResult {
+          "name": "testClogRecord_workingDir",
+          "tests": [
+            TestCaseResult {
+              "error": undefined,
+              "name": "record_streaming",
+              "result": "success",
+              "time": 1,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "extension_streaming",
+              "result": "success",
+              "time": 12,
+            },
+            TestCaseResult {
+              "error": {
+                "details": "../../../test/testClogRecord.cpp:356
+Expected equality of these values:
+  379
+  dSomeValue
+    Which is: 2.235
+
+
+../../../test/testClogRecord.cpp:357
+Expected equality of these values:
+  "Expecting this..."
+  sSomeText
+    Which is: "Got that!"
+",
+              },
+              "name": "other_failures",
+              "result": "failed",
+              "time": 0,
+            },
+          ],
+        },
+        TestGroupResult {
+          "name": "DISABLED_testClogRecord_simple",
+          "tests": [
+            TestCaseResult {
+              "error": undefined,
+              "name": "skipped_failure",
+              "result": "skipped",
+              "time": 0,
+            },
+            TestCaseResult {
+              "error": undefined,
+              "name": "skipped_success",
+              "result": "skipped",
+              "time": 0,
+            },
+          ],
+        },
+      ],
+      "name": "AllTests",
+      "totalTime": 14,
+    },
+  ],
+  "totalTime": 14,
+}
+`;
