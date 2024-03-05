@@ -1,25 +1,25 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { GitHub } from '@actions/github/lib/utils'
+import {GitHub} from '@actions/github/lib/utils'
 
-import { ArtifactProvider } from './input-providers/artifact-provider'
-import { LocalFileProvider } from './input-providers/local-file-provider'
-import { FileContent } from './input-providers/input-provider'
-import { ParseOptions, TestParser } from './test-parser'
-import { TestRunResult } from './test-results'
-import { getAnnotations } from './report/get-annotations'
-import { getReport } from './report/get-report'
+import {ArtifactProvider} from './input-providers/artifact-provider'
+import {LocalFileProvider} from './input-providers/local-file-provider'
+import {FileContent} from './input-providers/input-provider'
+import {ParseOptions, TestParser} from './test-parser'
+import {TestRunResult} from './test-results'
+import {getAnnotations} from './report/get-annotations'
+import {getReport} from './report/get-report'
 
-import { DartJsonParser } from './parsers/dart-json/dart-json-parser'
-import { DotnetTrxParser } from './parsers/dotnet-trx/dotnet-trx-parser'
-import { JavaJunitParser } from './parsers/java-junit/java-junit-parser'
-import { JestJunitParser } from './parsers/jest-junit/jest-junit-parser'
-import { MochaJsonParser } from './parsers/mocha-json/mocha-json-parser'
-import { SwiftXunitParser } from './parsers/swift-xunit/swift-xunit-parser'
-import { GoogleTestJsonParser } from './parsers/googletest-json/googletest-json-parser'
+import {DartJsonParser} from './parsers/dart-json/dart-json-parser'
+import {DotnetTrxParser} from './parsers/dotnet-trx/dotnet-trx-parser'
+import {JavaJunitParser} from './parsers/java-junit/java-junit-parser'
+import {JestJunitParser} from './parsers/jest-junit/jest-junit-parser'
+import {MochaJsonParser} from './parsers/mocha-json/mocha-json-parser'
+import {SwiftXunitParser} from './parsers/swift-xunit/swift-xunit-parser'
+import {GoogleTestJsonParser} from './parsers/googletest-json/googletest-json-parser'
 
-import { normalizeDirPath, normalizeFilePath } from './utils/path-utils'
-import { getCheckRunContext } from './utils/github-utils'
+import {normalizeDirPath, normalizeFilePath} from './utils/path-utils'
+import {getCheckRunContext} from './utils/github-utils'
 
 async function main(): Promise<void> {
   try {
@@ -32,19 +32,19 @@ async function main(): Promise<void> {
 }
 
 class TestReporter {
-  readonly artifact = core.getInput('artifact', { required: false })
-  readonly name = core.getInput('name', { required: true })
-  readonly path = core.getInput('path', { required: true })
-  readonly pathReplaceBackslashes = core.getInput('path-replace-backslashes', { required: false }) === 'true'
-  readonly reporter = core.getInput('reporter', { required: true })
-  readonly listSuites = core.getInput('list-suites', { required: true }) as 'all' | 'failed'
-  readonly listTests = core.getInput('list-tests', { required: true }) as 'all' | 'failed' | 'none'
-  readonly maxAnnotations = parseInt(core.getInput('max-annotations', { required: true }))
-  readonly failOnError = core.getInput('fail-on-error', { required: true }) === 'true'
-  readonly failOnEmpty = core.getInput('fail-on-empty', { required: true }) === 'true'
-  readonly workDirInput = core.getInput('working-directory', { required: false })
-  readonly onlySummary = core.getInput('only-summary', { required: false }) === 'true'
-  readonly token = core.getInput('token', { required: true })
+  readonly artifact = core.getInput('artifact', {required: false})
+  readonly name = core.getInput('name', {required: true})
+  readonly path = core.getInput('path', {required: true})
+  readonly pathReplaceBackslashes = core.getInput('path-replace-backslashes', {required: false}) === 'true'
+  readonly reporter = core.getInput('reporter', {required: true})
+  readonly listSuites = core.getInput('list-suites', {required: true}) as 'all' | 'failed'
+  readonly listTests = core.getInput('list-tests', {required: true}) as 'all' | 'failed' | 'none'
+  readonly maxAnnotations = parseInt(core.getInput('max-annotations', {required: true}))
+  readonly failOnError = core.getInput('fail-on-error', {required: true}) === 'true'
+  readonly failOnEmpty = core.getInput('fail-on-empty', {required: true}) === 'true'
+  readonly workDirInput = core.getInput('working-directory', {required: false})
+  readonly onlySummary = core.getInput('only-summary', {required: false}) === 'true'
+  readonly token = core.getInput('token', {required: true})
   readonly octokit: InstanceType<typeof GitHub>
   readonly context = getCheckRunContext()
 
@@ -82,14 +82,14 @@ class TestReporter {
 
     const inputProvider = this.artifact
       ? new ArtifactProvider(
-        this.octokit,
-        this.artifact,
-        this.name,
-        pattern,
-        this.context.sha,
-        this.context.runId,
-        this.token
-      )
+          this.octokit,
+          this.artifact,
+          this.name,
+          pattern,
+          this.context.sha,
+          this.context.runId,
+          this.token
+        )
       : new LocalFileProvider(this.name, pattern)
 
     const parseErrors = this.maxAnnotations > 0
@@ -151,7 +151,7 @@ class TestReporter {
 
     core.info(`Processing test results for check run ${name}`)
     const results: TestRunResult[] = []
-    for (const { file, content } of files) {
+    for (const {file, content} of files) {
       try {
         const tr = await parser.parse(file, content)
         results.push(tr)
@@ -174,9 +174,9 @@ class TestReporter {
     })
 
     core.info('Creating report summary')
-    const { listSuites, listTests, onlySummary } = this
+    const {listSuites, listTests, onlySummary} = this
     const baseUrl = createResp.data.html_url as string
-    const summary = getReport(results, { listSuites, listTests, baseUrl, onlySummary })
+    const summary = getReport(results, {listSuites, listTests, baseUrl, onlySummary})
 
     core.info('Creating annotations')
     const annotations = getAnnotations(results, this.maxAnnotations)

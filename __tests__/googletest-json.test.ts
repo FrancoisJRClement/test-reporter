@@ -23,7 +23,7 @@ describe('googletest-json tests', () => {
     expect(result.tests).toBe(0)
     expect(result.result).toBe('success')
   })
-  
+
   it('report from googletest test results matches snapshot', async () => {
     const fixturePath = path.join(__dirname, 'fixtures', 'googletest-json.json')
     const outputPath = path.join(__dirname, '__outputs__', 'googletest-json.md')

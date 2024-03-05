@@ -20,7 +20,7 @@ export interface GoogleTestCase {
 export interface GoogleTestGroup {
   name: string
   tests: number
-  failures:number
+  failures: number
   disabled: number
   errors?: number
   timestamp?: string
@@ -31,7 +31,7 @@ export interface GoogleTestGroup {
 export interface GoogleTestRun {
   name: string
   tests: number
-  failures:number
+  failures: number
   disabled: number
   errors: number
   timestamp?: string

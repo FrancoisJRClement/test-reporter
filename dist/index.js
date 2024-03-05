@@ -266,6 +266,7 @@ const java_junit_parser_1 = __nccwpck_require__(676);
 const jest_junit_parser_1 = __nccwpck_require__(1113);
 const mocha_json_parser_1 = __nccwpck_require__(6043);
 const swift_xunit_parser_1 = __nccwpck_require__(5366);
+const googletest_json_parser_1 = __nccwpck_require__(2343);
 const path_utils_1 = __nccwpck_require__(4070);
 const github_utils_1 = __nccwpck_require__(3522);
 function main() {
@@ -436,6 +437,8 @@ class TestReporter {
                 return new mocha_json_parser_1.MochaJsonParser(options);
             case 'swift-xunit':
                 return new swift_xunit_parser_1.SwiftXunitParser(options);
+            case 'googletest-json':
+                return new googletest_json_parser_1.GoogleTestJsonParser(options);
             default:
                 throw new Error(`Input variable 'reporter' is set to invalid value '${reporter}'`);
         }
@@ -896,6 +899,114 @@ class DotnetTrxParser {
     }
 }
 exports.DotnetTrxParser = DotnetTrxParser;
+
+
+/***/ }),
+
+/***/ 2343:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GoogleTestJsonParser = void 0;
+const path_utils_1 = __nccwpck_require__(4070);
+const test_results_1 = __nccwpck_require__(2768);
+class GoogleTestJsonParser {
+    constructor(options) {
+        this.options = options;
+    }
+    parse(path, content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const testRun = JSON.parse(content);
+                const runResult = this.getTestRunResult(path, testRun);
+                return Promise.resolve(runResult);
+            }
+            catch (parseException) {
+                if (parseException instanceof SyntaxError)
+                    throw new Error('Error while parsing file "' + path + '":\n\t' + parseException.message);
+                else
+                    throw parseException;
+            }
+        });
+    }
+    getTestRunResult(path, testRun) {
+        const totalTime = this.getTime(testRun.time);
+        const suites = [new test_results_1.TestSuiteResult(testRun.name, this.getGroups(testRun.testsuites), totalTime)];
+        return new test_results_1.TestRunResult(this.getRelativePath(path), suites, totalTime);
+    }
+    getGroups(testGroups) {
+        return testGroups.map(testGroup => new test_results_1.TestGroupResult(testGroup.name, this.getCases(testGroup.testsuite)));
+    }
+    getCases(testCases) {
+        return testCases.map(testCase => {
+            const result = this.getResult(testCase);
+            if (result === 'failed') {
+                return new test_results_1.TestCaseResult(testCase.name, result, this.getTime(testCase.time), this.getError(testCase));
+            }
+            else {
+                return new test_results_1.TestCaseResult(testCase.name, result, this.getTime(testCase.time));
+            }
+        });
+    }
+    getTime(time) {
+        const fullLength = time.length;
+        const valueLength = fullLength - 1;
+        if (time[valueLength] !== 's') {
+            return NaN;
+        }
+        else {
+            return Number(time.slice(0, valueLength)) * 1000;
+        }
+    }
+    getResult(testCase) {
+        if (testCase.status !== 'RUN') {
+            return 'skipped';
+        }
+        else if (testCase.failures === undefined || testCase.failures.length === 0) {
+            return 'success';
+        }
+        else {
+            return 'failed';
+        }
+    }
+    getError(testCase) {
+        if (testCase.failures.length === 0) {
+            return undefined;
+        }
+        else {
+            const errorMessage = testCase.failures.map(testFailure => testFailure.failure).join('\n\n');
+            return { details: errorMessage };
+        }
+    }
+    getRelativePath(path) {
+        const prefix = 'file://';
+        if (path.startsWith(prefix)) {
+            path = path.substr(prefix.length);
+        }
+        path = (0, path_utils_1.normalizeFilePath)(path);
+        const workDir = this.getWorkDir(path);
+        if (workDir !== undefined && path.startsWith(workDir)) {
+            path = path.substr(workDir.length);
+        }
+        return path;
+    }
+    getWorkDir(path) {
+        var _a, _b;
+        return ((_b = (_a = this.options.workDir) !== null && _a !== void 0 ? _a : this.assumedWorkDir) !== null && _b !== void 0 ? _b : (this.assumedWorkDir = (0, path_utils_1.getBasePath)(path, this.options.trackedFiles)));
+    }
+}
+exports.GoogleTestJsonParser = GoogleTestJsonParser;
 
 
 /***/ }),
@@ -43129,6 +43240,9 @@ function httpRedirectFetch (fetchParams, response) {
   if (!sameOrigin(requestCurrentURL(request), locationURL)) {
     // https://fetch.spec.whatwg.org/#cors-non-wildcard-request-header-name
     request.headersList.delete('authorization')
+
+    // https://fetch.spec.whatwg.org/#authentication-entries
+    request.headersList.delete('proxy-authorization', true)
 
     // "Cookie" and "Host" are forbidden request-headers, which undici doesn't implement.
     request.headersList.delete('cookie')
